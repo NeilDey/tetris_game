@@ -25,7 +25,10 @@ public class Shape : MonoBehaviour
 
             Debug.Log(transform.position);
 
-            
+            if (!IsInGrid())
+            {
+                transform.position += new Vector3(1, 0, 0);
+            }
         }
 
         if (Input.GetKeyDown("d"))
@@ -33,7 +36,11 @@ public class Shape : MonoBehaviour
             transform.position += new Vector3(1, 0, 0);
 
             Debug.Log(transform.position);
-            
+
+            if (!IsInGrid())
+            {
+                transform.position += new Vector3(-1, 0, 0);
+            }
         }
 
         if (Input.GetKeyDown("s") )
@@ -42,8 +49,12 @@ public class Shape : MonoBehaviour
 
             Debug.Log(transform.position);
 
-           
-            
+            if (!IsInGrid())
+            {
+                transform.position += new Vector3(0, 1, 0);
+            }
+
+         
         }
 
         if (Input.GetKeyDown("w"))
@@ -52,10 +63,40 @@ public class Shape : MonoBehaviour
 
             Debug.Log(transform.position);
 
-            
+            if (!IsInGrid())
+            {
+                transform.Rotate(0, 0, -90);
+            }
         }
 
     }
 
-   
+
+
+    public bool IsInGrid()
+    {
+        int childCount = 0;
+
+        foreach (Transform childBlock in transform)
+        {
+            Vector2 vect = childBlock.position;
+            childCount++;
+
+            Debug.Log(childCount + " " + childBlock.position);
+
+            if (!IsInBorder(vect))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool IsInBorder(Vector2 pos) {
+
+        return ((int)pos.x >= -5.499
+        && (int)pos.x <=4.502
+        && (int)pos.y >= -9.499);
+
+    }
 }
