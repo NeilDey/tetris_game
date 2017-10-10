@@ -7,7 +7,7 @@ public class Shape : MonoBehaviour
 
     public float speed = 1.0f;
 
-    
+    float lastMoveDown = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -43,7 +43,7 @@ public class Shape : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown("s") )
+        if (Input.GetKeyDown("s") || Time.time - lastMoveDown >= 1)
         {
             transform.position += new Vector3(0, -1, 0);
 
@@ -54,6 +54,7 @@ public class Shape : MonoBehaviour
                 transform.position += new Vector3(0, 1, 0);
             }
 
+            lastMoveDown = Time.time;
          
         }
 
